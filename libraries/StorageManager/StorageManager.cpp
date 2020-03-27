@@ -51,16 +51,16 @@ const StorageManager::StorageArea StorageManager::layout[STORAGE_NUM_AREAS] = {
  */
 const StorageManager::StorageArea StorageManager::layout[STORAGE_NUM_AREAS] = {
     { StorageParam,   0,     1280}, // 0x500 parameter bytes
-    { StorageMission, 1280,  2506},
-    { StorageRally,   3786,   150}, // 10 rally points
-    { StorageFence,   3936,   160}, // 20 fence points
+    { StorageMission, 1280,  2816},
+    { StorageRally,   4096,     0}, // 10 rally points
+    { StorageFence,   4096,     0}, // 20 fence points
 #if STORAGE_NUM_AREAS >= 8
     { StorageParam,   4096,  1280},
-    { StorageRally,   5376,   300},
-    { StorageFence,   5676,   256},
-    { StorageMission, 5932,  2132}, 
-    { StorageKeys,    8064,    64}, 
-    { StorageBindInfo,8128,    56}, 
+    { StorageRally,   5376,     0},
+    { StorageFence,   5376,     0},
+    { StorageMission, 5376,  2688},
+    { StorageKeys,    8064,    64},
+    { StorageBindInfo,8128,    56},
 #endif
 #if STORAGE_NUM_AREAS == 11
     // optimised for lots of parameters for 15k boards with OSD
@@ -68,10 +68,10 @@ const StorageManager::StorageArea StorageManager::layout[STORAGE_NUM_AREAS] = {
 #endif
 #if STORAGE_NUM_AREAS >= 12
     { StorageParam,    8192,  1280},
-    { StorageRally,    9472,   300},
-    { StorageFence,    9772,   256},
-    { StorageMission,  10028,  5204}, // leave 128 byte gap for expansion
-    { StorageCANDNA,   15232,  1024},
+    { StorageRally,    9472,     0},
+    { StorageFence,    9772,     0},
+    { StorageMission,  9472,  5760}, // leave 128 byte gap for expansion
+    { StorageCANDNA,   15232, 1024},
 #endif
 };
 
@@ -92,7 +92,7 @@ const StorageManager::StorageArea StorageManager::layout[STORAGE_NUM_AREAS] = {
     { StorageRally,   5376,   300},
     { StorageFence,   5676,   256},
     { StorageMission, 5932,  2132},
-    { StorageKeys,    8064,    64}, 
+    { StorageKeys,    8064,    64},
     { StorageBindInfo,8128,    56},
 #endif
 #if STORAGE_NUM_AREAS == 11
@@ -122,8 +122,8 @@ void StorageManager::erase(void)
 /*
   constructor for StorageAccess
  */
-StorageAccess::StorageAccess(StorageManager::StorageType _type) : 
-    type(_type) 
+StorageAccess::StorageAccess(StorageManager::StorageType _type) :
+    type(_type)
 {
     // calculate available bytes
     total_size = 0;
